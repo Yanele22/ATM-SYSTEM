@@ -3,11 +3,12 @@ from atm import *
 if login():
 
     while True:
-        print("\n===== ATM MENU =====")
+        print("\*=*=* ATM MENU =*=*=")
         print("1. Check Balance")
         print("2. Deposit")
         print("3. Withdraw")
-        print("4. Exit")
+        print("4. View Transactions")
+        print("5. Exit")
 
         choice = input("Choose option: ")
 
@@ -21,8 +22,11 @@ if login():
             withdraw()
 
         elif choice == "4":
-            print("Goodbye ")
+            view_transactions()
+
+        elif choice == "5":
+            print("Thank you for using the ATM.\nGoodbye!")
             break
 
         else:
-            print("Invalid option")
+            print("Invalid option. Please try again.")

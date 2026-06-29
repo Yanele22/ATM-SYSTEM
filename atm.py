@@ -1,6 +1,11 @@
 from account import Account
 
+
 user = Account("1234", 1000)
+
+def save_transaction(transaction):
+    with open("transactions.txt", "a") as file:
+        file.write(transaction + "\n")
 
 
 def login():
@@ -23,16 +28,32 @@ def deposit():
 
     if amount > 0:
         user.balance += amount
-        print("Deposit successful")
+        save_transaction(f"Deposited: R{amount:.2f}")
+        print("Deposit successful!")
     else:
         print("Invalid amount")
-
 
 def withdraw():
     amount = float(input("Withdraw amount: R"))
 
     if amount <= user.balance:
         user.balance -= amount
-        print("Withdrawal successful")
+        save_transaction(f"Withdrew: R{amount:.2f}")
+        print("Withdrawal successful!")
     else:
         print("Insufficient funds")
+
+def view_transactions():
+    print("\n=*=*= TRANSACTION HISTORY =*=*=*=")
+
+    try:
+        with open("transactions.txt", "r") as file:
+            history = file.read()
+
+            if history:
+                print(history)
+            else:
+                print("No transactions found.")
+
+    except FileNotFoundError:
+        print("No transaction history found.")
