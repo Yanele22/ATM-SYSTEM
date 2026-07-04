@@ -3,7 +3,7 @@ from atm import *
 if login():
 
     while True:
-        
+
         print("*=*=* ATM MENU =*=*=")
         print("1. Check Balance")
         print("2. Deposit")

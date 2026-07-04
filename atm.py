@@ -6,63 +6,66 @@ accounts = [
     Account("1003", "2222", "OwnerYaya", 5000)
 ]
 
-current_user = None
+user = None
 
 def save_transaction(transaction):
     with open("transactions.txt", "a") as file:
         file.write(transaction + "\n")
 
 def login():
-    global current_user
+    attempts = 3
 
-    account_number = input("Enter Account Number: ")
-    pin = input("Enter PIN: ")
+    while attempts > 0:
+        pin = input("Enter PIN: ")
 
-    for account in accounts:
-        if account.account_number == account_number and account.pin == pin:
-            current_user = account
-            print(f"\nWelcome, {current_user.name}!")
+        if pin == user.pin:
+            print("\nLogin successful!\n")
             return True
 
-    print("Invalid account number or PIN.")
+        attempts -= 1
+        print(f"Incorrect PIN. Attempts remaining: {attempts}")
+
+    print("\nAccount locked.")
     return False
 
 def check_balance():
-   print(f"\nCurrent Balance: R{current_user.balance:.2f}")
+   print(f"\nCurrent Balance: R{user.balance:.2f}")
 
 def deposit():
     try:
         amount = float(input("Deposit amount: R"))
 
         if amount <= 0:
-            print("Amount must be greater than zero.")
+            print("Deposit must be greater than zero.")
             return
 
-        current_user.balance += amount
+        user.balance += amount
         save_transaction(f"Deposited: R{amount:.2f}")
+
         print("Deposit successful!")
 
     except ValueError:
-        print("Please enter a valid number.")
+        print("Please enter numbers only.")
 
 def withdraw():
     try:
         amount = float(input("Withdraw amount: R"))
 
         if amount <= 0:
-            print("Amount must be greater than zero.")
+            print("Withdrawal amount must be greater than zero.")
             return
 
-        if amount > current_user.balance:
+        if amount > user.balance:
             print("Insufficient funds.")
             return
 
-        current_user.balance -= amount
+        user.balance -= amount
         save_transaction(f"Withdrew: R{amount:.2f}")
+
         print("Withdrawal successful!")
 
     except ValueError:
-        print("Please enter a valid number.")
+        print("Please enter numbers only.")
 
 def view_transactions():
     print("\n=*=*= TRANSACTION HISTORY =*=*=*=")
