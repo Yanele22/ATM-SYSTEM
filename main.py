@@ -4,7 +4,7 @@ if login():
 
     while True:
 
-        print("*=*=* ATM MENU =*=*=")
+        print("\n=*=*= ATM MENU =*=*=")
         print("1. Check Balance")
         print("2. Deposit")
         print("3. Withdraw")
@@ -26,8 +26,8 @@ if login():
             view_transactions()
 
         elif choice == "5":
-            print("Thank you for using the ATM.\nGoodbye!")
+            print("Thank you for using our ATM.")
             break
 
         else:
-            print("Invalid option. Please try again.")
+            print("Invalid option.")
