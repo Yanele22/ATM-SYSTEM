@@ -9,7 +9,10 @@ if login():
         print("2. Deposit")
         print("3. Withdraw")
         print("4. View Transactions")
-        print("5. Exit")
+        print("5. Account Details")
+        print("6. Change PIN")
+        print("7. Logout")
+        print("8. Exit")
 
         choice = input("Choose option: ")
 
@@ -26,6 +29,20 @@ if login():
             view_transactions()
 
         elif choice == "5":
+            account_details()
+
+        elif choice == "6":
+            change_pin()
+
+        elif choice == "7":
+            logout()
+
+            if login():
+                continue
+            else:
+                break
+
+        elif choice == "8":
             print("Thank you for using our ATM.")
             break
 

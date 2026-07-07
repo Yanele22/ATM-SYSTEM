@@ -27,7 +27,7 @@ def login():
 
 
 def check_balance():
-    print("\n===== ACCOUNT DETAILS =====")
+    print("\n==*== ACCOUNT DETAILS ==*==")
     print(f"Account Holder: {current_user.name}")
     print(f"Account Number: {current_user.account_number}")
     print(f"Current Balance: R{current_user.balance:.2f}")
@@ -79,7 +79,7 @@ def withdraw():
 
 
 def view_transactions():
-    print("\n===== TRANSACTION HISTORY =====")
+    print("\n==*== TRANSACTION HISTORY ==*==")
 
     try:
         with open("transactions.txt", "r") as file:
@@ -96,3 +96,38 @@ def view_transactions():
 
     except FileNotFoundError:
         print("No transaction history found.")
+
+def change_pin():
+    current_pin = input("Enter your current PIN: ")
+
+    if current_pin != current_user.pin:
+        print("Incorrect PIN.")
+        return
+
+    new_pin = input("Enter your new 4-digit PIN: ")
+    confirm_pin = input("Confirm your new PIN: ")
+
+    if len(new_pin) != 4 or not new_pin.isdigit():
+        print("PIN must be exactly 4 digits.")
+        return
+
+    if new_pin != confirm_pin:
+        print("PINs do not match.")
+        return
+
+    current_user.pin = new_pin
+
+    print("PIN changed successfully!")
+
+def account_details():
+    print("\n==*== ACCOUNT DETAILS ==*==")
+    print(f"Account Holder : {current_user.name}")
+    print(f"Account Number : {current_user.account_number}")
+    print(f"Balance        : R{current_user.balance:.2f}")
+
+def logout():
+    global current_user
+
+    print(f"\nGoodbye, {current_user.name}!")
+
+    current_user = None
