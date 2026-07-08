@@ -1,50 +1,52 @@
 from atm import *
 
-if login():
+while not login():
+    print("Please try again.\n")
 
-    while True:
+while True:
 
-        print("\n=*=*= ATM MENU =*=*=")
-        print("1. Check Balance")
-        print("2. Deposit")
-        print("3. Withdraw")
-        print("4. View Transactions")
-        print("5. Account Details")
-        print("6. Change PIN")
-        print("7. Logout")
-        print("8. Exit")
+    print("\n=*=*= ATM MENU =*=*=")
+    print("1. Check Balance")
+    print("2. Deposit")
+    print("3. Withdraw")
+    print("4. View Transactions")
+    print("5. Account Details")
+    print("6. Change PIN")
+    print("7. Transfer Money")
+    print("8. Logout")
+    print("9. Exit")
 
-        choice = input("Choose option: ")
+    choice = input("Choose option: ")
 
-        if choice == "1":
-            check_balance()
+    if choice == "1":
+        check_balance()
 
-        elif choice == "2":
-            deposit()
+    elif choice == "2":
+        deposit()
 
-        elif choice == "3":
-            withdraw()
+    elif choice == "3":
+        withdraw()
 
-        elif choice == "4":
-            view_transactions()
+    elif choice == "4":
+        view_transactions()
 
-        elif choice == "5":
-            account_details()
+    elif choice == "5":
+        account_details()
 
-        elif choice == "6":
-            change_pin()
+    elif choice == "6":
+        change_pin()
 
-        elif choice == "7":
-            logout()
+    elif choice == "7":
+        transfer_money()
 
-            if login():
-                continue
-            else:
-                break
+    elif choice == "8":
+        logout()
+        while not login():
+            print("Please try again.\n")
 
-        elif choice == "8":
-            print("Thank you for using our ATM.")
-            break
+    elif choice == "9":
+        print("Thank you for using our ATM.")
+        break
 
-        else:
-            print("Invalid option.")
+    else:
+        print("Invalid option.")

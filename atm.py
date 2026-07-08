@@ -1,4 +1,5 @@
 from account import Account
+from datetime import datetime
 
 # Create bank accounts
 accounts = [
@@ -32,10 +33,13 @@ def check_balance():
     print(f"Account Number: {current_user.account_number}")
     print(f"Current Balance: R{current_user.balance:.2f}")
 
-
 def save_transaction(transaction):
+    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
     with open("transactions.txt", "a") as file:
-        file.write(f"{current_user.account_number} - {transaction}\n")
+        file.write(
+            f"{current_time} | {current_user.account_number} | {transaction}\n"
+        )
 
 
 def deposit():
@@ -131,3 +135,44 @@ def logout():
     print(f"\nGoodbye, {current_user.name}!")
 
     current_user = None
+
+def transfer_money():
+    receiver = input("Enter receiver account number: ")
+
+    account_found = None
+
+    for account in accounts:
+        if account.account_number == receiver:
+            account_found = account
+            break
+
+    if account_found is None:
+        print("Account not found.")
+        return
+
+    if account_found == current_user:
+        print("You cannot transfer money to yourself.")
+        return
+
+    try:
+        amount = float(input("Amount to transfer: R"))
+
+        if amount <= 0:
+            print("Amount must be greater than zero.")
+            return
+
+        if amount > current_user.balance:
+            print("Insufficient funds.")
+            return
+
+        current_user.balance -= amount
+        account_found.balance += amount
+
+        save_transaction(
+            f"Transferred R{amount:.2f} to {account_found.account_number}"
+        )
+
+        print("Transfer successful!")
+
+    except ValueError:
+        print("Invalid amount.")
